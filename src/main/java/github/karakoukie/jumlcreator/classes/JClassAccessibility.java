@@ -14,24 +14,32 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package github.karakoukie.jumlcreator.data;
+package github.karakoukie.jumlcreator.classes;
 
 /**
  *
  * @author Tristan Muller (tristan.muller@cirad.fr)
  */
-public enum DataType {
-    VOID,
-    INT,
-    FLOAT,
-    DOUBLE,
-    LONG,
-    BOOLEAN,
-    STRING,
-    CHAR,
-    BYTE,
-    OBJECT,
-    GENERIC,
-    CLASS,
-    CUSTOM,
+public enum JClassAccessibility {
+    IMMUTABLE,
+    THREAD_SAFE,
+    NOT_THREAD_SAFE;
+    
+    public static final String[] getNames() {
+        return new String[] {
+            "Immutable",
+            "TreadSafe",
+            "NotThreadSafe"
+        };
+    }
+    
+    public static final JClassAccessibility getFromName(final String name) {
+        switch(name) {
+            case "Immutable": return IMMUTABLE;
+            case "ThreadSafe": return THREAD_SAFE;
+            case "NotThreadSafe": return NOT_THREAD_SAFE;
+        }
+        
+        return null;
+    }
 }

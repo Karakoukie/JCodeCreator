@@ -14,14 +14,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package github.karakoukie.jumlcreator.classes;
+package github.karakoukie.jumlcreator.nodes;
 
 /**
  *
  * @author Tristan Muller (tristan.muller@cirad.fr)
  */
-public enum ClassAccessibility {
-    IMMUTABLE,
-    THREAD_SAFE,
-    NOT_THREAD_SAFE
+public enum JAccessKeyword {
+    PUBLIC,
+    PROTECTED,
+    PRIVATE
 }

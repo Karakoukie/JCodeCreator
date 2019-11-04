@@ -16,8 +16,11 @@
  */
 package github.karakoukie.jumlcreator.methods;
 
-import github.karakoukie.jumlcreator.elements.AccessKeyword;
-import github.karakoukie.jumlcreator.elements.ImplementationKeyword;
+import github.karakoukie.jumlcreator.data.JDataType;
+import github.karakoukie.jumlcreator.nodes.JElementNode;
+import java.util.Collections;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import org.apache.http.annotation.GuardedBy;
 import org.apache.http.annotation.ThreadSafe;
 
@@ -26,26 +29,25 @@ import org.apache.http.annotation.ThreadSafe;
  * @author Tristan Muller (tristan.muller@cirad.fr)
  */
 @ThreadSafe
-public final class Method extends InterfaceMethod {
+public class JInterfaceMethod extends JElementNode {
     
     /*----------------------------------------------------------------------*/
     /* FIELDS                                                               */
     /*----------------------------------------------------------------------*/
-    
+
     @GuardedBy("this")
-    private AccessKeyword accessKeyword;
+    private JDataType returnType;
     
-    @GuardedBy("this")
-    private ImplementationKeyword implementationKeyword;
+    @GuardedBy("CopyOnWriteArrayList")
+    private final List<JProperty> properties;
     
     /*----------------------------------------------------------------------*/
     /* CONSTRUCTOR                                                          */
     /*----------------------------------------------------------------------*/
-
-    public Method() {
-        super();
-        this.accessKeyword = AccessKeyword.PUBLIC;
-        this.implementationKeyword = ImplementationKeyword.FINAL;
+    
+    public JInterfaceMethod() {
+        this.returnType = JDataType.VOID;
+        this.properties = new CopyOnWriteArrayList();
     }
     
     /*----------------------------------------------------------------------*/
@@ -56,30 +58,34 @@ public final class Method extends InterfaceMethod {
     /* SETTEURS                                                             */
     /*----------------------------------------------------------------------*/
 
-    public final synchronized void setAccessKeyword(
-            final AccessKeyword accessKeyword) {
-        this.accessKeyword = accessKeyword;
+    public final synchronized void setReturnType(JDataType returnType) {
+        this.returnType = returnType;
     }
     
-    public final synchronized void setImplementationKeyword(
-            final ImplementationKeyword implementationKeyword) {
-        this.implementationKeyword = implementationKeyword;
+    public final void addProperty(final JProperty p) {
+        this.properties.add(p);
     }
-
+    
+    public final void removeProperty(final JProperty p) {
+        this.properties.remove(p);
+    }
+    
     /*----------------------------------------------------------------------*/
     /* GETTEURS                                                             */
     /*----------------------------------------------------------------------*/
-    
-    public final synchronized AccessKeyword getAccessKeyword() {
-        return accessKeyword;
-    }
 
-    public final synchronized ImplementationKeyword getImplementationKeyword() {
-        return implementationKeyword;
+    public final synchronized JDataType getReturnType() {
+        return returnType;
+    }
+    
+    public final List<JProperty> getProperties() {
+        return Collections.unmodifiableList(properties);
     }
     
     /*----------------------------------------------------------------------*/
     /* OTHER METHODS                                                        */
     /*----------------------------------------------------------------------*/
 
+    
+    
 }

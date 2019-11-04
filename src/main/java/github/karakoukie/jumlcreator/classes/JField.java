@@ -14,39 +14,42 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package github.karakoukie.jumlcreator;
+package github.karakoukie.jumlcreator.classes;
 
-import github.karakoukie.jumlcreator.elements.Element;
-import github.karakoukie.jumlcreator.methods.InterfaceMethod;
-import java.util.Collections;
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
+import github.karakoukie.jumlcreator.data.JData;
+import github.karakoukie.jumlcreator.nodes.JAccessKeyword;
+import github.karakoukie.jumlcreator.nodes.JElementNode;
+import github.karakoukie.jumlcreator.nodes.JImplementationKeyword;
 import org.apache.http.annotation.GuardedBy;
 
 /**
  *
  * @author Tristan Muller (tristan.muller@cirad.fr)
  */
-public final class Interface extends Element {
+public final class JField extends JElementNode {
     
     /*----------------------------------------------------------------------*/
     /* FIELDS                                                               */
     /*----------------------------------------------------------------------*/
-
-    @GuardedBy("this")
-    private Interface extension;
     
-    @GuardedBy("CopyOnWriteArrayList")
-    private final List<InterfaceMethod> methods;
+    @GuardedBy("this")
+    private JAccessKeyword accessKeyword;
+    
+    @GuardedBy("this")
+    private JImplementationKeyword implementationKeyword;
+    
+    @GuardedBy("Data")
+    private final JData data;
     
     /*----------------------------------------------------------------------*/
     /* CONSTRUCTOR                                                          */
     /*----------------------------------------------------------------------*/
     
-    public Interface() {
+    public JField() {
         super();
-        this.extension = null;
-        this.methods = new CopyOnWriteArrayList();
+        this.accessKeyword = JAccessKeyword.PUBLIC;
+        this.implementationKeyword = JImplementationKeyword.FINAL;
+        this.data = new JData();
     }
     
     /*----------------------------------------------------------------------*/
@@ -57,28 +60,34 @@ public final class Interface extends Element {
     /* SETTEURS                                                             */
     /*----------------------------------------------------------------------*/
     
-    public final void addMethod(final InterfaceMethod method) {
-        this.methods.add(method);
+    public final synchronized void setAccessKeyword(
+            final JAccessKeyword accessKeyword) {
+        this.accessKeyword = accessKeyword;
     }
     
-    public final void removeMethod(final InterfaceMethod method) {
-        this.methods.remove(method);
+    public final synchronized void setImplementationKeyword(
+            final JImplementationKeyword implementationKeyword) {
+        this.implementationKeyword = implementationKeyword;
     }
     
     /*----------------------------------------------------------------------*/
     /* GETTEURS                                                             */
     /*----------------------------------------------------------------------*/
     
-    public final synchronized Interface getExtension() {
-        return extension;
+    public final synchronized JAccessKeyword getAccessKeyword() {
+        return accessKeyword;
     }
 
-    public final List<InterfaceMethod> getMethods() {
-        return Collections.unmodifiableList(methods);
+    public final synchronized JImplementationKeyword getImplementationKeyword() {
+        return implementationKeyword;
+    }
+    
+    public final JData getData() {
+        return data;
     }
     
     /*----------------------------------------------------------------------*/
     /* OTHER METHODS                                                        */
     /*----------------------------------------------------------------------*/
-
+    
 }

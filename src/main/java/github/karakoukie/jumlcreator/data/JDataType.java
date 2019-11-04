@@ -14,14 +14,24 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package github.karakoukie.jumlcreator.elements;
+package github.karakoukie.jumlcreator.data;
 
 /**
  *
  * @author Tristan Muller (tristan.muller@cirad.fr)
  */
-public enum ImplementationKeyword {
-    DEFAULT,
-    ABSTRACT,
-    FINAL,
+public enum JDataType {
+    VOID,
+    INT,
+    FLOAT,
+    DOUBLE,
+    LONG,
+    BOOLEAN,
+    STRING,
+    CHAR,
+    BYTE,
+    OBJECT,
+    GENERIC,
+    CLASS,
+    CUSTOM,
 }

@@ -14,21 +14,36 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package github.karakoukie.jumlcreator;
+package github.karakoukie.jumlcreator.nodes;
+
+import org.apache.http.annotation.GuardedBy;
+import org.apache.http.annotation.ThreadSafe;
 
 /**
  *
  * @author Tristan Muller (tristan.muller@cirad.fr)
  */
-public final class Project {
+@ThreadSafe
+public abstract class JNode {
     
     /*----------------------------------------------------------------------*/
     /* FIELDS                                                               */
     /*----------------------------------------------------------------------*/
     
+    @GuardedBy("this")
+    private String name;
+    
+    @GuardedBy("this")
+    private String description;
+
     /*----------------------------------------------------------------------*/
     /* CONSTRUCTOR                                                          */
     /*----------------------------------------------------------------------*/
+    
+    public JNode() {
+        this.name = "";
+        this.description = "";
+    }
     
     /*----------------------------------------------------------------------*/
     /* METHODS                                                              */
@@ -37,13 +52,34 @@ public final class Project {
     /*----------------------------------------------------------------------*/
     /* SETTEURS                                                             */
     /*----------------------------------------------------------------------*/
-    
+
+    public final synchronized void setName(final String name) {
+        this.name = name;
+    }
+
+    public final synchronized void setDescription(final String description) {
+        this.description = description;
+    }
+
     /*----------------------------------------------------------------------*/
     /* GETTEURS                                                             */
     /*----------------------------------------------------------------------*/
     
+    public final synchronized String getName() {
+        return name;
+    }
+
+    public final synchronized String getDescription() {
+        return description;
+    }
+    
     /*----------------------------------------------------------------------*/
     /* OTHER METHODS                                                        */
     /*----------------------------------------------------------------------*/
+    
+    @Override
+    public String toString() {
+        return name;
+    }
     
 }

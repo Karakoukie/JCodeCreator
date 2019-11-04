@@ -66,7 +66,8 @@ public class MainFrame extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         jToolBar = new javax.swing.JToolBar();
         jButtonNewProject = new javax.swing.JButton();
@@ -137,8 +138,10 @@ public class MainFrame extends javax.swing.JFrame {
         jButtonNewProject.setFocusable(false);
         jButtonNewProject.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonNewProject.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonNewProject.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jButtonNewProject.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jButtonNewProjectActionPerformed(evt);
             }
         });
@@ -148,8 +151,10 @@ public class MainFrame extends javax.swing.JFrame {
         jButtonOpenProject.setFocusable(false);
         jButtonOpenProject.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonOpenProject.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonOpenProject.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jButtonOpenProject.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jButtonOpenProjectActionPerformed(evt);
             }
         });
@@ -159,8 +164,10 @@ public class MainFrame extends javax.swing.JFrame {
         jButtonSaveProject.setFocusable(false);
         jButtonSaveProject.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonSaveProject.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonSaveProject.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jButtonSaveProject.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jButtonSaveProjectActionPerformed(evt);
             }
         });
@@ -170,8 +177,10 @@ public class MainFrame extends javax.swing.JFrame {
         jButtonExportProject.setFocusable(false);
         jButtonExportProject.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonExportProject.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonExportProject.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jButtonExportProject.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jButtonExportProjectActionPerformed(evt);
             }
         });
@@ -182,8 +191,10 @@ public class MainFrame extends javax.swing.JFrame {
         jButtonAddPackage.setFocusable(false);
         jButtonAddPackage.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonAddPackage.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonAddPackage.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jButtonAddPackage.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jButtonAddPackageActionPerformed(evt);
             }
         });
@@ -193,8 +204,10 @@ public class MainFrame extends javax.swing.JFrame {
         jButtonAddClass.setFocusable(false);
         jButtonAddClass.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonAddClass.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonAddClass.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jButtonAddClass.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jButtonAddClassActionPerformed(evt);
             }
         });
@@ -204,8 +217,10 @@ public class MainFrame extends javax.swing.JFrame {
         jButtonAddInterface.setFocusable(false);
         jButtonAddInterface.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonAddInterface.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonAddInterface.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jButtonAddInterface.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jButtonAddInterfaceActionPerformed(evt);
             }
         });
@@ -215,8 +230,10 @@ public class MainFrame extends javax.swing.JFrame {
         jButtonAddEnum.setFocusable(false);
         jButtonAddEnum.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonAddEnum.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonAddEnum.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jButtonAddEnum.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jButtonAddEnumActionPerformed(evt);
             }
         });
@@ -227,8 +244,10 @@ public class MainFrame extends javax.swing.JFrame {
         jButtonOptions.setFocusable(false);
         jButtonOptions.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonOptions.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonOptions.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jButtonOptions.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jButtonOptionsActionPerformed(evt);
             }
         });
@@ -253,8 +272,10 @@ public class MainFrame extends javax.swing.JFrame {
         jButtonRename.setFocusable(false);
         jButtonRename.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonRename.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonRename.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jButtonRename.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jButtonRenameActionPerformed(evt);
             }
         });
@@ -265,8 +286,10 @@ public class MainFrame extends javax.swing.JFrame {
         jButtonMove.setFocusable(false);
         jButtonMove.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonMove.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonMove.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jButtonMove.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jButtonMoveActionPerformed(evt);
             }
         });
@@ -277,8 +300,10 @@ public class MainFrame extends javax.swing.JFrame {
         jButtonDelete.setFocusable(false);
         jButtonDelete.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonDelete.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonDelete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jButtonDelete.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jButtonDeleteActionPerformed(evt);
             }
         });
@@ -299,21 +324,24 @@ public class MainFrame extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(242, 242, 242));
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+        jList1.setModel(new javax.swing.AbstractListModel<String>()
+        {
             String[] strings = { "+ amount : int" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
         jScrollPane1.setViewportView(jList1);
 
-        jList2.setModel(new javax.swing.AbstractListModel<String>() {
+        jList2.setModel(new javax.swing.AbstractListModel<String>()
+        {
             String[] strings = { "+ final synchronized sendMessage(message : Message) : void" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
         jScrollPane2.setViewportView(jList2);
 
-        jList3.setModel(new javax.swing.AbstractListModel<String>() {
+        jList3.setModel(new javax.swing.AbstractListModel<String>()
+        {
             String[] strings = { "+ Entity()" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
@@ -416,8 +444,8 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jToolBar1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane1)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 604, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 604, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 579, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 579, Short.MAX_VALUE)
                     .addComponent(jToolBar2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jToolBar3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -436,7 +464,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(jToolBar3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(79, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanelFiles.add(jPanel3, java.awt.BorderLayout.CENTER);

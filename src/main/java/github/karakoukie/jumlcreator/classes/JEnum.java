@@ -14,38 +14,39 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package github.karakoukie.jumlcreator.methods;
+package github.karakoukie.jumlcreator.classes;
 
-import github.karakoukie.jumlcreator.data.Data;
-import github.karakoukie.jumlcreator.elements.Element;
+import github.karakoukie.jumlcreator.methods.JInterfaceMethod;
+import github.karakoukie.jumlcreator.nodes.JChildNode;
+import java.util.Collections;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import org.apache.http.annotation.GuardedBy;
-import org.apache.http.annotation.ThreadSafe;
 
 /**
  *
  * @author Tristan Muller (tristan.muller@cirad.fr)
  */
-@ThreadSafe
-public class Property extends Element {
+public final class JEnum extends JChildNode {
     
     /*----------------------------------------------------------------------*/
     /* FIELDS                                                               */
     /*----------------------------------------------------------------------*/
-    
+
     @GuardedBy("this")
-    private boolean isFinal;
+    private JEnum extension;
     
-    @GuardedBy("Data")
-    private final Data data;
+    @GuardedBy("CopyOnWriteArrayList")
+    private final List<JInterfaceMethod> methods;
     
     /*----------------------------------------------------------------------*/
     /* CONSTRUCTOR                                                          */
     /*----------------------------------------------------------------------*/
     
-    public Property() {
+    public JEnum() {
         super();
-        this.isFinal = true;
-        this.data = new Data();
+        this.extension = null;
+        this.methods = new CopyOnWriteArrayList();
     }
     
     /*----------------------------------------------------------------------*/
@@ -55,23 +56,27 @@ public class Property extends Element {
     /*----------------------------------------------------------------------*/
     /* SETTEURS                                                             */
     /*----------------------------------------------------------------------*/
-
-    public final synchronized void setIsFinal(final boolean isFinal) {
-        this.isFinal = isFinal;
+    
+    public final void addMethod(final JInterfaceMethod method) {
+        this.methods.add(method);
+    }
+    
+    public final void removeMethod(final JInterfaceMethod method) {
+        this.methods.remove(method);
     }
     
     /*----------------------------------------------------------------------*/
     /* GETTEURS                                                             */
     /*----------------------------------------------------------------------*/
     
-    public final synchronized boolean isFinal() {
-        return isFinal;
-    }
-    
-    public final Data getData() {
-        return data;
+    public final synchronized JEnum getExtension() {
+        return extension;
     }
 
+    public final List<JInterfaceMethod> getMethods() {
+        return Collections.unmodifiableList(methods);
+    }
+    
     /*----------------------------------------------------------------------*/
     /* OTHER METHODS                                                        */
     /*----------------------------------------------------------------------*/

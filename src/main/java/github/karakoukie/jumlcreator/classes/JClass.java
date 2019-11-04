@@ -16,10 +16,9 @@
  */
 package github.karakoukie.jumlcreator.classes;
 
-import github.karakoukie.jumlcreator.elements.ImplementationKeyword;
-import github.karakoukie.jumlcreator.elements.Element;
-import github.karakoukie.jumlcreator.Interface;
-import github.karakoukie.jumlcreator.methods.Method;
+import github.karakoukie.jumlcreator.methods.JMethod;
+import github.karakoukie.jumlcreator.nodes.JChildNode;
+import github.karakoukie.jumlcreator.nodes.JImplementationKeyword;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -31,38 +30,42 @@ import org.apache.http.annotation.ThreadSafe;
  * @author Tristan Muller (tristan.muller@cirad.fr)
  */
 @ThreadSafe
-public final class Class extends Element {
+public final class JClass extends JChildNode {
     
     /*----------------------------------------------------------------------*/
     /* FIELDS                                                               */
     /*----------------------------------------------------------------------*/
     
     @GuardedBy("this")
-    private ClassAccessibility accessibility;
+    private Package parent;
     
     @GuardedBy("this")
-    private ImplementationKeyword classType;
+    private JClassAccessibility accessibility;
     
     @GuardedBy("this")
-    private Class extension;
+    private JImplementationKeyword classType;
+    
+    @GuardedBy("this")
+    private JClass extension;
     
     @GuardedBy("CopyOnWriteArrayList")
-    private final List<Interface> implementations;
+    private final List<JInterface> implementations;
     
     @GuardedBy("CopyOnWriteArrayList")
-    private final List<Field> fields;
+    private final List<JField> fields;
     
     @GuardedBy("CopyOnWriteArrayList")
-    private final List<Method> methods;
+    private final List<JMethod> methods;
     
     /*----------------------------------------------------------------------*/
     /* CONSTRUCTOR                                                          */
     /*----------------------------------------------------------------------*/
 
-    public Class() {
+    public JClass() {
         super();
-        this.accessibility = ClassAccessibility.NOT_THREAD_SAFE;
-        this.classType = ImplementationKeyword.DEFAULT;
+        this.parent = null;
+        this.accessibility = JClassAccessibility.NOT_THREAD_SAFE;
+        this.classType = JImplementationKeyword.EMPTY;
         this.extension = null;
         this.implementations = new CopyOnWriteArrayList();
         this.fields = new CopyOnWriteArrayList();
@@ -77,68 +80,76 @@ public final class Class extends Element {
     /* SETTEURS                                                             */
     /*----------------------------------------------------------------------*/
 
+    public final synchronized void setParent(final Package parent) {
+        this.parent = parent;
+    }
+    
     public final synchronized void setAccessibility(
-            final ClassAccessibility accessibility) {
+            final JClassAccessibility accessibility) {
         this.accessibility = accessibility;
     }
 
-    public final synchronized void setClassType(final ImplementationKeyword c) {
+    public final synchronized void setClassType(final JImplementationKeyword c) {
         this.classType = c;
     }
 
-    public final synchronized void setExtension(final Class e) {
+    public final synchronized void setExtension(final JClass e) {
         this.extension = e;
     }
     
-    public final void addImplementation(final Interface i) {
+    public final void addImplementation(final JInterface i) {
         this.implementations.add(i);
     }
     
-    public final void removeImplementation(final Interface i) {
+    public final void removeImplementation(final JInterface i) {
         this.implementations.remove(i);
     }
     
-    public final void addField(final Field f) {
-        this.fields.add(f);
+    public final void addField(final JField field) {
+        this.fields.add(field);
     }
     
-    public final void removeField(final Field f) {
-        this.fields.remove(f);
+    public final void removeField(final JField field) {
+        this.fields.remove(field);
     }
     
-    public final void addMethod(final Method method) {
+    public final void addMethod(final JMethod method) {
         this.methods.add(method);
     }
     
-    public final void removeMethod(final Method method) {
+    public final void removeMethod(final JMethod method) {
         this.methods.remove(method);
     }
     
     /*----------------------------------------------------------------------*/
     /* GETTEURS                                                             */
     /*----------------------------------------------------------------------*/
+
+    public final synchronized Package getParent() {
+        return parent;
+    }
     
-    public final synchronized ClassAccessibility getAccessibility() {
+    public final synchronized JClassAccessibility getAccessibility() {
         return accessibility;
     }
 
-    public final synchronized ImplementationKeyword getClassType() {
+    public final synchronized JImplementationKeyword getClassType() {
         return classType;
     }
 
-    public final synchronized Class getExtension() {
+    public final synchronized JClass getExtension() {
         return extension;
     }
 
-    public final List<Interface> getImplementations() {
+    public final List<JInterface> getImplementations() {
         return Collections.unmodifiableList(implementations);
     }
 
-    public final List<Field> getFields() {
+    public final List<JField> getFields() {
         return Collections.unmodifiableList(fields);
     }
 
-    public final List<Method> getMethods() {
+    public final List<JMethod> getMethods() {
         return Collections.unmodifiableList(methods);
     }
     

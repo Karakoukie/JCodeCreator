@@ -16,11 +16,8 @@
  */
 package github.karakoukie.jumlcreator.methods;
 
-import github.karakoukie.jumlcreator.data.DataType;
-import github.karakoukie.jumlcreator.elements.Element;
-import java.util.Collections;
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
+import github.karakoukie.jumlcreator.data.JData;
+import github.karakoukie.jumlcreator.nodes.JElementNode;
 import org.apache.http.annotation.GuardedBy;
 import org.apache.http.annotation.ThreadSafe;
 
@@ -29,25 +26,26 @@ import org.apache.http.annotation.ThreadSafe;
  * @author Tristan Muller (tristan.muller@cirad.fr)
  */
 @ThreadSafe
-public class InterfaceMethod extends Element {
+public class JProperty extends JElementNode {
     
     /*----------------------------------------------------------------------*/
     /* FIELDS                                                               */
     /*----------------------------------------------------------------------*/
-
-    @GuardedBy("this")
-    private DataType returnType;
     
-    @GuardedBy("CopyOnWriteArrayList")
-    private final List<Property> properties;
+    @GuardedBy("this")
+    private boolean isFinal;
+    
+    @GuardedBy("Data")
+    private final JData data;
     
     /*----------------------------------------------------------------------*/
     /* CONSTRUCTOR                                                          */
     /*----------------------------------------------------------------------*/
     
-    public InterfaceMethod() {
-        this.returnType = DataType.VOID;
-        this.properties = new CopyOnWriteArrayList();
+    public JProperty() {
+        super();
+        this.isFinal = true;
+        this.data = new JData();
     }
     
     /*----------------------------------------------------------------------*/
@@ -58,34 +56,24 @@ public class InterfaceMethod extends Element {
     /* SETTEURS                                                             */
     /*----------------------------------------------------------------------*/
 
-    public final synchronized void setReturnType(DataType returnType) {
-        this.returnType = returnType;
-    }
-    
-    public final void addProperty(final Property p) {
-        this.properties.add(p);
-    }
-    
-    public final void removeProperty(final Property p) {
-        this.properties.remove(p);
+    public final synchronized void setIsFinal(final boolean isFinal) {
+        this.isFinal = isFinal;
     }
     
     /*----------------------------------------------------------------------*/
     /* GETTEURS                                                             */
     /*----------------------------------------------------------------------*/
+    
+    public final synchronized boolean isFinal() {
+        return isFinal;
+    }
+    
+    public final JData getData() {
+        return data;
+    }
 
-    public final synchronized DataType getReturnType() {
-        return returnType;
-    }
-    
-    public final List<Property> getProperties() {
-        return Collections.unmodifiableList(properties);
-    }
-    
     /*----------------------------------------------------------------------*/
     /* OTHER METHODS                                                        */
     /*----------------------------------------------------------------------*/
 
-    
-    
 }

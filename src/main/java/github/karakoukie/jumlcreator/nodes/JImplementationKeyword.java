@@ -14,14 +14,32 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package github.karakoukie.jumlcreator.elements;
+package github.karakoukie.jumlcreator.nodes;
 
 /**
  *
  * @author Tristan Muller (tristan.muller@cirad.fr)
  */
-public enum AccessKeyword {
-    PUBLIC,
-    PROTECTED,
-    PRIVATE
+public enum JImplementationKeyword {
+    EMPTY,
+    ABSTRACT,
+    FINAL;
+    
+    public static final String[] getNames() {
+        return new String[] {
+            "Empty",
+            "Abstract",
+            "Final"
+        };
+    }
+    
+    public static final JImplementationKeyword getFromName(final String name) {
+        switch(name) {
+            case "Empty": return EMPTY;
+            case "Abstract": return ABSTRACT;
+            case "Final": return FINAL;
+        }
+        
+        return null;
+    }
 }

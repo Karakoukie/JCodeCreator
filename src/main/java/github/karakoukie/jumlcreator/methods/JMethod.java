@@ -14,30 +14,42 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package github.karakoukie.jumlcreator.packages;
+package github.karakoukie.jumlcreator.methods;
 
-import github.karakoukie.jumlcreator.elements.Element;
+import github.karakoukie.jumlcreator.nodes.JAccessKeyword;
+import github.karakoukie.jumlcreator.nodes.JImplementationKeyword;
 import org.apache.http.annotation.GuardedBy;
+import org.apache.http.annotation.ThreadSafe;
 
 /**
  *
  * @author Tristan Muller (tristan.muller@cirad.fr)
  */
-public final class Package extends Element {
+@ThreadSafe
+public final class JMethod extends JInterfaceMethod {
     
     /*----------------------------------------------------------------------*/
     /* FIELDS                                                               */
     /*----------------------------------------------------------------------*/
     
     @GuardedBy("this")
-    private Package parent;
+    private JAccessKeyword accessKeyword;
+    
+    @GuardedBy("this")
+    private JImplementationKeyword implementationKeyword;
+    
+    @GuardedBy("this")
+    private String code;
     
     /*----------------------------------------------------------------------*/
     /* CONSTRUCTOR                                                          */
     /*----------------------------------------------------------------------*/
-    
-    public Package() {
-        this.parent = null;
+
+    public JMethod() {
+        super();
+        this.accessKeyword = JAccessKeyword.PUBLIC;
+        this.implementationKeyword = JImplementationKeyword.FINAL;
+        this.code = "";
     }
     
     /*----------------------------------------------------------------------*/
@@ -47,17 +59,35 @@ public final class Package extends Element {
     /*----------------------------------------------------------------------*/
     /* SETTEURS                                                             */
     /*----------------------------------------------------------------------*/
-    
-    public final synchronized void setParent(Package parent) {
-        this.parent = parent;
+
+    public final synchronized void setAccessKeyword(
+            final JAccessKeyword accessKeyword) {
+        this.accessKeyword = accessKeyword;
     }
     
+    public final synchronized void setImplementationKeyword(
+            final JImplementationKeyword implementationKeyword) {
+        this.implementationKeyword = implementationKeyword;
+    }
+
+    public final synchronized void setCode(final String code) {
+        this.code = code;
+    }
+
     /*----------------------------------------------------------------------*/
     /* GETTEURS                                                             */
     /*----------------------------------------------------------------------*/
     
-    public final synchronized Package getParent() {
-        return parent;
+    public final synchronized JAccessKeyword getAccessKeyword() {
+        return accessKeyword;
+    }
+
+    public final synchronized JImplementationKeyword getImplementationKeyword() {
+        return implementationKeyword;
+    }
+    
+    public final synchronized String getCode() {
+        return code;
     }
     
     /*----------------------------------------------------------------------*/

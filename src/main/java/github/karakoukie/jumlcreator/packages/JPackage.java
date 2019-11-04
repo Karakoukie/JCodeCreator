@@ -14,79 +14,42 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package github.karakoukie.jumlcreator.data;
+package github.karakoukie.jumlcreator.packages;
 
-import org.apache.http.annotation.GuardedBy;
+import github.karakoukie.jumlcreator.nodes.JParentNode;
 
 /**
  *
  * @author Tristan Muller (tristan.muller@cirad.fr)
  */
-public final class Data {
+public final class JPackage extends JParentNode {
     
     /*----------------------------------------------------------------------*/
     /* FIELDS                                                               */
     /*----------------------------------------------------------------------*/
-
-    @GuardedBy("this")
-    private DataType dataType;
-    
-    @GuardedBy("this")
-    private github.karakoukie.jumlcreator.classes.Class classDataType;
-    
-    @GuardedBy("this")
-    private String customDataType;
     
     /*----------------------------------------------------------------------*/
     /* CONSTRUCTOR                                                          */
     /*----------------------------------------------------------------------*/
     
-    public Data() {
-        this.dataType = DataType.VOID;
-        this.classDataType = null;
-        this.customDataType = "";
+    public JPackage() {
+        super();
     }
     
     /*----------------------------------------------------------------------*/
     /* METHODS                                                              */
     /*----------------------------------------------------------------------*/
-    
+        
     /*----------------------------------------------------------------------*/
     /* SETTEURS                                                             */
     /*----------------------------------------------------------------------*/
-    
-    public final synchronized void setDataType(final DataType dataType) {
-        this.dataType = dataType;
-    }
-
-    public final synchronized void setClassDataType(
-            final github.karakoukie.jumlcreator.classes.Class classDataType) {
-        this.classDataType = classDataType;
-    }
-
-    public final synchronized void setCustomDataType(final String customDataType) {
-        this.customDataType = customDataType;
-    }
     
     /*----------------------------------------------------------------------*/
     /* GETTEURS                                                             */
     /*----------------------------------------------------------------------*/
     
-    public final synchronized DataType getDataType() {
-        return dataType;
-    }
-
-    public final synchronized github.karakoukie.jumlcreator.classes.Class 
-        getClassDataType() {
-        return classDataType;
-    }
-
-    public final synchronized String getCustomDataType() {
-        return customDataType;
-    }
-    
     /*----------------------------------------------------------------------*/
     /* OTHER METHODS                                                        */
     /*----------------------------------------------------------------------*/
-    
+
 }

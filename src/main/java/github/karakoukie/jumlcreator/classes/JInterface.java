@@ -16,40 +16,37 @@
  */
 package github.karakoukie.jumlcreator.classes;
 
-import github.karakoukie.jumlcreator.data.Data;
-import github.karakoukie.jumlcreator.elements.AccessKeyword;
-import github.karakoukie.jumlcreator.elements.Element;
-import github.karakoukie.jumlcreator.elements.ImplementationKeyword;
+import github.karakoukie.jumlcreator.methods.JInterfaceMethod;
+import github.karakoukie.jumlcreator.nodes.JChildNode;
+import java.util.Collections;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import org.apache.http.annotation.GuardedBy;
 
 /**
  *
  * @author Tristan Muller (tristan.muller@cirad.fr)
  */
-public final class Field extends Element {
+public final class JInterface extends JChildNode {
     
     /*----------------------------------------------------------------------*/
     /* FIELDS                                                               */
     /*----------------------------------------------------------------------*/
-    
+
     @GuardedBy("this")
-    private AccessKeyword accessKeyword;
+    private JInterface extension;
     
-    @GuardedBy("this")
-    private ImplementationKeyword implementationKeyword;
-    
-    @GuardedBy("Data")
-    private final Data data;
+    @GuardedBy("CopyOnWriteArrayList")
+    private final List<JInterfaceMethod> methods;
     
     /*----------------------------------------------------------------------*/
     /* CONSTRUCTOR                                                          */
     /*----------------------------------------------------------------------*/
     
-    public Field() {
+    public JInterface() {
         super();
-        this.accessKeyword = AccessKeyword.PUBLIC;
-        this.implementationKeyword = ImplementationKeyword.FINAL;
-        this.data = new Data();
+        this.extension = null;
+        this.methods = new CopyOnWriteArrayList();
     }
     
     /*----------------------------------------------------------------------*/
@@ -60,34 +57,28 @@ public final class Field extends Element {
     /* SETTEURS                                                             */
     /*----------------------------------------------------------------------*/
     
-    public final synchronized void setAccessKeyword(
-            final AccessKeyword accessKeyword) {
-        this.accessKeyword = accessKeyword;
+    public final void addMethod(final JInterfaceMethod method) {
+        this.methods.add(method);
     }
     
-    public final synchronized void setImplementationKeyword(
-            final ImplementationKeyword implementationKeyword) {
-        this.implementationKeyword = implementationKeyword;
+    public final void removeMethod(final JInterfaceMethod method) {
+        this.methods.remove(method);
     }
     
     /*----------------------------------------------------------------------*/
     /* GETTEURS                                                             */
     /*----------------------------------------------------------------------*/
     
-    public final synchronized AccessKeyword getAccessKeyword() {
-        return accessKeyword;
+    public final synchronized JInterface getExtension() {
+        return extension;
     }
 
-    public final synchronized ImplementationKeyword getImplementationKeyword() {
-        return implementationKeyword;
-    }
-    
-    public final Data getData() {
-        return data;
+    public final List<JInterfaceMethod> getMethods() {
+        return Collections.unmodifiableList(methods);
     }
     
     /*----------------------------------------------------------------------*/
     /* OTHER METHODS                                                        */
     /*----------------------------------------------------------------------*/
-    
+
 }

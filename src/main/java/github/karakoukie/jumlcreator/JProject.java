@@ -14,67 +14,42 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package github.karakoukie.jumlcreator.elements;
+package github.karakoukie.jumlcreator;
 
-import org.apache.http.annotation.GuardedBy;
-import org.apache.http.annotation.ThreadSafe;
+import github.karakoukie.jumlcreator.nodes.JRootNode;
 
 /**
  *
  * @author Tristan Muller (tristan.muller@cirad.fr)
  */
-@ThreadSafe
-public abstract class Element {
+public final class JProject extends JRootNode {
     
     /*----------------------------------------------------------------------*/
     /* FIELDS                                                               */
     /*----------------------------------------------------------------------*/
     
-    @GuardedBy("this")
-    private String name;
-    
-    @GuardedBy("this")
-    private String comment;
-
     /*----------------------------------------------------------------------*/
     /* CONSTRUCTOR                                                          */
     /*----------------------------------------------------------------------*/
     
-    public Element() {
-        this.name = "";
-        this.comment = "";
+    public JProject() {
+        super();
     }
     
     /*----------------------------------------------------------------------*/
     /* METHODS                                                              */
     /*----------------------------------------------------------------------*/
-    
+
     /*----------------------------------------------------------------------*/
     /* SETTEURS                                                             */
     /*----------------------------------------------------------------------*/
-
-    public final synchronized void setName(final String name) {
-        this.name = name;
-    }
-
-    public final synchronized void setComment(String comment) {
-        this.comment = comment;
-    }
-
+    
     /*----------------------------------------------------------------------*/
     /* GETTEURS                                                             */
     /*----------------------------------------------------------------------*/
     
-    public final synchronized String getName() {
-        return name;
-    }
-
-    public final synchronized String getComment() {
-        return comment;
-    }
-    
     /*----------------------------------------------------------------------*/
     /* OTHER METHODS                                                        */
     /*----------------------------------------------------------------------*/
-    
+
 }
