@@ -30,23 +30,16 @@ public class ElementListPanel extends javax.swing.JPanel {
     public static final String PROPERTY_TYPE = "Properties";
     public static final String CONSTRUCTOR_TYPE = "Constructors";
     public static final String METHOD_TYPE = "Field";
-    
+
     private Runnable onAddCallback;
-    final AddFieldDialog addFieldDialog;
-    final AddPropertyDialog addPropertyDialog;
-    final AddConstructorDialog addConstructorDialog;
-    final AddMethodDialog addMethodDialog;
     private String type;
+    private JElementNode elementNode;
 
     /** Creates new form FieldListPanel */
     public ElementListPanel() {
         initComponents();
-        this.addFieldDialog = new AddFieldDialog(null);
-        this.addPropertyDialog = new AddPropertyDialog(null);
-        this.addConstructorDialog = new AddConstructorDialog(null);
-        this.addMethodDialog = new AddMethodDialog(null);
     }
-    
+
     public final void setType(final String type) {
         this.type = type;
         jLabelTitle.setText(type);
@@ -56,12 +49,16 @@ public class ElementListPanel extends javax.swing.JPanel {
      * Change list items.
      * @param elements
      */
-    public final void setElements(final List<JElementNode> elements) {
+    public final void setElements(final List<? extends JElementNode> elements) {
         final DefaultListModel model = new DefaultListModel();
 
-        elements.forEach((field) -> {
-            model.addElement(field.getGUIString());
-        });
+        if (elements != null) {
+            elements.forEach((element) -> {
+                if (element != null) {
+                    model.addElement(element.getGUIString());
+                }
+            });
+        }
 
         jListFields.setModel(model);
     }
@@ -69,16 +66,9 @@ public class ElementListPanel extends javax.swing.JPanel {
     public final void setOnAddCallback(final Runnable onAddCallback) {
         this.onAddCallback = onAddCallback;
     }
-    
+
     public final JElementNode getElement() {
-        switch(type) {
-            case FIELD_TYPE: return addFieldDialog.getField();
-            case PROPERTY_TYPE: return addPropertyDialog.getProperty();
-            case CONSTRUCTOR_TYPE: return addConstructorDialog.getConstructor();
-            case METHOD_TYPE: return addMethodDialog.getMethod();
-        }
-        
-        return null;
+        return elementNode;
     }
 
     /** This method is called from within the constructor to initialize the
@@ -152,33 +142,40 @@ public class ElementListPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonAddFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddFieldActionPerformed
-        switch(type) {
-            case FIELD_TYPE:
-                addFieldDialog.setOnChangeNameCallback((name) -> {
-                    addFieldDialog.setAvailableName(true);
-                });
+        if (type != null) {
+            switch (type) {
+                case FIELD_TYPE:
+                    final AddFieldDialog fieldDialog = new AddFieldDialog(null);
 
-                addFieldDialog.setOnAcceptCallback(() -> {
-                    if (onAddCallback != null) {
-                        onAddCallback.run();
-                    }
-                });
+                    fieldDialog.setOnChangeNameCallback((name) -> {
+                        fieldDialog.setAvailableName(true);
+                    });
 
-                addFieldDialog.setVisible(true);
-                break;
-            case CONSTRUCTOR_TYPE:
-                addConstructorDialog.setOnChangeNameCallback((name) -> {
-                    addConstructorDialog.setAvailableName(true);
-                });
+                    fieldDialog.setOnAcceptCallback(() -> {
+                        if (onAddCallback != null) {
+                            onAddCallback.run();
+                        }
+                    });
 
-                addConstructorDialog.setOnAcceptCallback(() -> {
-                    if (onAddCallback != null) {
-                        onAddCallback.run();
-                    }
-                });
+                    fieldDialog.setVisible(true);
+                    break;
+                case CONSTRUCTOR_TYPE:
+                    final AddConstructorDialog constructorDialog
+                            = new AddConstructorDialog(null);
 
-                addConstructorDialog.setVisible(true);
-                break;
+                    constructorDialog.setOnChangeNameCallback((name) -> {
+                        constructorDialog.setAvailableName(true);
+                    });
+
+                    constructorDialog.setOnAcceptCallback(() -> {
+                        if (onAddCallback != null) {
+                            onAddCallback.run();
+                        }
+                    });
+
+                    constructorDialog.setVisible(true);
+                    break;
+            }
         }
     }//GEN-LAST:event_jButtonAddFieldActionPerformed
 

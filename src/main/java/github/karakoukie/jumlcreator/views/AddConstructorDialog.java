@@ -29,7 +29,7 @@ import org.apache.http.annotation.GuardedBy;
  */
 public class AddConstructorDialog extends java.awt.Dialog {
 
-    private final ElementListPanel fieldsPanel;
+    private ElementListPanel fieldsPanel;
 
     @GuardedBy("this")
     private Runnable onAcceptCallback;
@@ -39,7 +39,7 @@ public class AddConstructorDialog extends java.awt.Dialog {
 
     private boolean validName;
     
-    private List<JProperty> properties;
+    private final List<JProperty> properties;
 
     /**
      * Creates new form CreateProjectDialog
@@ -101,6 +101,7 @@ public class AddConstructorDialog extends java.awt.Dialog {
         jButtonCancel = new javax.swing.JButton();
         jButtonAccept = new javax.swing.JButton();
 
+        setPreferredSize(new java.awt.Dimension(720, 500));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -112,7 +113,7 @@ public class AddConstructorDialog extends java.awt.Dialog {
 
         jLabel1.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("ADD FIELD");
+        jLabel1.setText("ADD CONSTRUCTOR");
         jDesktopPaneHeader.add(jLabel1);
 
         add(jDesktopPaneHeader, java.awt.BorderLayout.NORTH);

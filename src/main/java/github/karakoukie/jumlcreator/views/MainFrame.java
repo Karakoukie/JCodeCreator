@@ -20,7 +20,9 @@ import github.karakoukie.jumlcreator.MainFrameController;
 import github.karakoukie.jumlcreator.TreeRenderer;
 import github.karakoukie.jumlcreator.classes.JClass;
 import github.karakoukie.jumlcreator.classes.JEnum;
+import github.karakoukie.jumlcreator.classes.JField;
 import github.karakoukie.jumlcreator.classes.JInterface;
+import github.karakoukie.jumlcreator.classes.methods.JConstructor;
 import github.karakoukie.jumlcreator.nodes.JNode;
 import github.karakoukie.jumlcreator.nodes.JParentNode;
 import github.karakoukie.jumlcreator.packages.JPackage;
@@ -283,7 +285,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         jSplitPane.setLeftComponent(jPanelProject);
 
-        jPanelFiles.setLayout(new java.awt.CardLayout(2, 2));
+        jPanelFiles.setLayout(new javax.swing.BoxLayout(jPanelFiles, javax.swing.BoxLayout.PAGE_AXIS));
         jSplitPane.setRightComponent(jPanelFiles);
 
         getContentPane().add(jSplitPane, java.awt.BorderLayout.CENTER);
@@ -349,27 +351,38 @@ public class MainFrame extends javax.swing.JFrame {
             });
         }
     }
-    
+
     private void updateFile() {
         jPanelFiles.removeAll();
 
-        final DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) (jTree.getLastSelectedPathComponent());
+        final DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) 
+                jTree.getLastSelectedPathComponent();
 
         if (selectedNode != null) {
             if (selectedNode.getUserObject() instanceof JClass) {
                 final JClass jClass = (JClass) selectedNode.getUserObject();
-                
+
                 final ElementListPanel fieldsPanel = new ElementListPanel();
+                fieldsPanel.setType(ElementListPanel.FIELD_TYPE);
                 fieldsPanel.setElements(jClass.getFields());
-                jPanelFiles.add(fieldsPanel);
-                fieldsPanel.setConstructors(jClass.getConstructors());
-                fieldsPanel.setMethods(jClass.getMethods());
-                
                 fieldsPanel.setOnAddCallback(() -> {
                     ((JClass) controller.getProject().getHierarchicalChild(
-                            jClass.getName())).addField(fieldsPanel.getElement());
+                            jClass.getName())).addField((JField) fieldsPanel.getElement());
                     updateFile();
                 });
+                jPanelFiles.add(fieldsPanel);
+
+                final ElementListPanel constructorsPanel = new ElementListPanel();
+                constructorsPanel.setType(ElementListPanel.CONSTRUCTOR_TYPE);
+                constructorsPanel.setElements(jClass.getConstructors());
+                constructorsPanel.setOnAddCallback(() -> {
+                    ((JClass) controller.getProject().getHierarchicalChild(
+                            jClass.getName())).addConstructor(
+                            (JConstructor) constructorsPanel.getElement());
+                    updateFile();
+                });
+                
+                jPanelFiles.add(constructorsPanel);
             }
         }
 

@@ -118,6 +118,14 @@ public final class JClass extends JChildNode {
         this.fields.remove(field);
     }
     
+    public final void addConstructor(final JConstructor constructor) {
+        this.constructors.add(constructor);
+    }
+    
+    public final void removeConstructor(final JConstructor constructor) {
+        this.constructors.remove(constructor);
+    }
+    
     public final void addMethod(final JMethod method) {
         this.methods.add(method);
     }
