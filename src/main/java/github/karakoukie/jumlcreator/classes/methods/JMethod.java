@@ -14,8 +14,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package github.karakoukie.jumlcreator.methods;
+package github.karakoukie.jumlcreator.classes.methods;
 
+import github.karakoukie.jumlcreator.data.JDataType;
 import github.karakoukie.jumlcreator.nodes.JAccessKeyword;
 import github.karakoukie.jumlcreator.nodes.JImplementationKeyword;
 import org.apache.http.annotation.GuardedBy;
@@ -55,6 +56,39 @@ public final class JMethod extends JInterfaceMethod {
     /*----------------------------------------------------------------------*/
     /* METHODS                                                              */
     /*----------------------------------------------------------------------*/
+    
+    @Override
+    public final String getGUIString() {
+        String text = "";
+        
+        switch (accessKeyword) {
+            case PRIVATE : text += " - "; break;
+            case PROTECTED : text += " * "; break;
+            case PUBLIC : text += " + "; break;
+        }
+        
+        switch (implementationKeyword) {
+            case ABSTRACT : text += " abstract "; break;
+            case FINAL : text += " final "; break;
+        }
+        
+        text += getName();
+        text += "(";
+        for (int i = 0; i < properties.size(); i++) {
+            text += properties.get(i).getGUIString();
+            
+            if (i != properties.size() - 1) {
+                text += ", ";
+            }
+        }
+        text += ")";
+        
+        if (getReturnType().getDataType() != JDataType.VOID) {
+            text += " : " + getReturnType().getName();
+        }
+        
+        return text;
+    }
     
     /*----------------------------------------------------------------------*/
     /* SETTEURS                                                             */

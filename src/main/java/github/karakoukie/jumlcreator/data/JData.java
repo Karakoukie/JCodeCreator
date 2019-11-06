@@ -18,13 +18,15 @@ package github.karakoukie.jumlcreator.data;
 
 import github.karakoukie.jumlcreator.classes.JClass;
 import org.apache.http.annotation.GuardedBy;
+import org.apache.http.annotation.ThreadSafe;
 
 /**
  *
  * @author Tristan Muller (tristan.muller@cirad.fr)
  */
+@ThreadSafe
 public final class JData {
-    
+  
     /*----------------------------------------------------------------------*/
     /* FIELDS                                                               */
     /*----------------------------------------------------------------------*/
@@ -51,6 +53,20 @@ public final class JData {
     /*----------------------------------------------------------------------*/
     /* METHODS                                                              */
     /*----------------------------------------------------------------------*/
+    
+    public final String getName() {
+        if (dataType != null) {
+            if (dataType == JDataType.CUSTOM) {
+                return customDataType;
+            } else if (dataType == JDataType.CLASS) {
+                return classDataType.getName();
+            }
+            
+            return dataType.getName();
+        }
+        
+        return "Object";
+    }
     
     /*----------------------------------------------------------------------*/
     /* SETTEURS                                                             */

@@ -20,7 +20,7 @@ package github.karakoukie.jumlcreator.classes;
  *
  * @author Tristan Muller (tristan.muller@cirad.fr)
  */
-public enum JClassAccessibility {
+public enum JClassConcurrencyType {
     IMMUTABLE,
     THREAD_SAFE,
     NOT_THREAD_SAFE;
@@ -33,7 +33,7 @@ public enum JClassAccessibility {
         };
     }
     
-    public static final JClassAccessibility getFromName(final String name) {
+    public static final JClassConcurrencyType getFromName(final String name) {
         switch(name) {
             case "Immutable": return IMMUTABLE;
             case "ThreadSafe": return THREAD_SAFE;

@@ -14,13 +14,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package github.karakoukie.jumlcreator.methods;
+package github.karakoukie.jumlcreator.classes.methods;
 
-import github.karakoukie.jumlcreator.data.JDataType;
+import github.karakoukie.jumlcreator.data.JData;
 import github.karakoukie.jumlcreator.nodes.JElementNode;
-import java.util.Collections;
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 import org.apache.http.annotation.GuardedBy;
 import org.apache.http.annotation.ThreadSafe;
 
@@ -29,63 +26,66 @@ import org.apache.http.annotation.ThreadSafe;
  * @author Tristan Muller (tristan.muller@cirad.fr)
  */
 @ThreadSafe
-public class JInterfaceMethod extends JElementNode {
+public class JProperty extends JElementNode {
     
     /*----------------------------------------------------------------------*/
     /* FIELDS                                                               */
     /*----------------------------------------------------------------------*/
-
-    @GuardedBy("this")
-    private JDataType returnType;
     
-    @GuardedBy("CopyOnWriteArrayList")
-    private final List<JProperty> properties;
+    @GuardedBy("this")
+    private boolean isFinal;
+    
+    @GuardedBy("Data")
+    private final JData data;
     
     /*----------------------------------------------------------------------*/
     /* CONSTRUCTOR                                                          */
     /*----------------------------------------------------------------------*/
     
-    public JInterfaceMethod() {
-        this.returnType = JDataType.VOID;
-        this.properties = new CopyOnWriteArrayList();
+    public JProperty() {
+        super();
+        this.isFinal = true;
+        this.data = new JData();
     }
     
     /*----------------------------------------------------------------------*/
     /* METHODS                                                              */
     /*----------------------------------------------------------------------*/
+
+    @Override
+    public String getGUIString() {
+        String text = "";
+        
+        if (isFinal) {
+            text += "final ";
+        }
+        
+        text += data.getName();
+        return text;
+    }
     
     /*----------------------------------------------------------------------*/
     /* SETTEURS                                                             */
     /*----------------------------------------------------------------------*/
 
-    public final synchronized void setReturnType(JDataType returnType) {
-        this.returnType = returnType;
-    }
-    
-    public final void addProperty(final JProperty p) {
-        this.properties.add(p);
-    }
-    
-    public final void removeProperty(final JProperty p) {
-        this.properties.remove(p);
+    public final synchronized void setIsFinal(final boolean isFinal) {
+        this.isFinal = isFinal;
     }
     
     /*----------------------------------------------------------------------*/
     /* GETTEURS                                                             */
     /*----------------------------------------------------------------------*/
+    
+    public final synchronized boolean isFinal() {
+        return isFinal;
+    }
+    
+    public final JData getData() {
+        return data;
+    }
 
-    public final synchronized JDataType getReturnType() {
-        return returnType;
-    }
-    
-    public final List<JProperty> getProperties() {
-        return Collections.unmodifiableList(properties);
-    }
-    
     /*----------------------------------------------------------------------*/
     /* OTHER METHODS                                                        */
     /*----------------------------------------------------------------------*/
 
-    
-    
 }

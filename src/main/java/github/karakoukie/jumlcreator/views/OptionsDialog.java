@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package github.karakoukie.jumlcreator;
+package github.karakoukie.jumlcreator.views;
 
 import org.apache.http.annotation.GuardedBy;
 
@@ -59,7 +59,7 @@ public class OptionsDialog extends java.awt.Dialog {
         jButtonCancel = new javax.swing.JButton();
         jButtonAccept = new javax.swing.JButton();
 
-        setPreferredSize(new java.awt.Dimension(667, 200));
+        setPreferredSize(new java.awt.Dimension(669, 220));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {

@@ -14,14 +14,17 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package github.karakoukie.jumlcreator;
+package github.karakoukie.jumlcreator.views;
 
+import github.karakoukie.jumlcreator.MainFrameController;
+import github.karakoukie.jumlcreator.TreeRenderer;
 import github.karakoukie.jumlcreator.classes.JClass;
 import github.karakoukie.jumlcreator.classes.JEnum;
 import github.karakoukie.jumlcreator.classes.JInterface;
 import github.karakoukie.jumlcreator.nodes.JNode;
 import github.karakoukie.jumlcreator.nodes.JParentNode;
 import github.karakoukie.jumlcreator.packages.JPackage;
+import java.awt.Frame;
 import java.util.List;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
@@ -47,12 +50,7 @@ public class MainFrame extends javax.swing.JFrame {
         jTree.getSelectionModel().setSelectionMode(
                 TreeSelectionModel.SINGLE_TREE_SELECTION);
         jTree.setCellRenderer(new TreeRenderer());
-        jTree.addTreeSelectionListener((tse) -> {
-            jButtonRename.setEnabled(jTree.getSelectionCount() != 0);
-            jButtonMove.setEnabled(jTree.getSelectionCount() != 0);
-            jButtonDelete.setEnabled(jTree.getSelectionCount() != 0);
-        });
-        
+
         jButtonAddPackage.setEnabled(false);
         jButtonAddClass.setEnabled(false);
         jButtonAddInterface.setEnabled(false);
@@ -66,10 +64,10 @@ public class MainFrame extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         jToolBar = new javax.swing.JToolBar();
+        jSeparator5 = new javax.swing.JToolBar.Separator();
         jButtonNewProject = new javax.swing.JButton();
         jButtonOpenProject = new javax.swing.JButton();
         jButtonSaveProject = new javax.swing.JButton();
@@ -81,42 +79,20 @@ public class MainFrame extends javax.swing.JFrame {
         jButtonAddEnum = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JToolBar.Separator();
         jButtonOptions = new javax.swing.JButton();
+        jSeparator7 = new javax.swing.JToolBar.Separator();
         jSplitPane = new javax.swing.JSplitPane();
         jPanelProject = new javax.swing.JPanel();
         jToolBar4 = new javax.swing.JToolBar();
+        jSeparator3 = new javax.swing.JToolBar.Separator();
         jLabel2 = new javax.swing.JLabel();
         jSeparator6 = new javax.swing.JToolBar.Separator();
         jButtonRename = new javax.swing.JButton();
         jButtonMove = new javax.swing.JButton();
         jButtonDelete = new javax.swing.JButton();
+        jSeparator4 = new javax.swing.JToolBar.Separator();
         jScrollPane = new javax.swing.JScrollPane();
         jTree = new javax.swing.JTree();
         jPanelFiles = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList<>();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jList3 = new javax.swing.JList<>();
-        jToolBar1 = new javax.swing.JToolBar();
-        jLabel1 = new javax.swing.JLabel();
-        jSeparator3 = new javax.swing.JToolBar.Separator();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jToolBar2 = new javax.swing.JToolBar();
-        jLabel4 = new javax.swing.JLabel();
-        jSeparator4 = new javax.swing.JToolBar.Separator();
-        jButton10 = new javax.swing.JButton();
-        jButton11 = new javax.swing.JButton();
-        jButton12 = new javax.swing.JButton();
-        jToolBar3 = new javax.swing.JToolBar();
-        jLabel5 = new javax.swing.JLabel();
-        jSeparator5 = new javax.swing.JToolBar.Separator();
-        jButton13 = new javax.swing.JButton();
-        jButton14 = new javax.swing.JButton();
-        jButton15 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuFile = new javax.swing.JMenu();
         jMenuItemNewProject = new javax.swing.JMenuItem();
@@ -130,18 +106,19 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuItemAddEnum = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setExtendedState(Frame.MAXIMIZED_BOTH);
+        setPreferredSize(new java.awt.Dimension(800, 600));
 
         jToolBar.setBackground(new java.awt.Color(255, 255, 255));
         jToolBar.setFloatable(false);
+        jToolBar.add(jSeparator5);
 
         jButtonNewProject.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/document-new.png"))); // NOI18N
         jButtonNewProject.setFocusable(false);
         jButtonNewProject.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonNewProject.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonNewProject.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButtonNewProject.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonNewProjectActionPerformed(evt);
             }
         });
@@ -151,10 +128,8 @@ public class MainFrame extends javax.swing.JFrame {
         jButtonOpenProject.setFocusable(false);
         jButtonOpenProject.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonOpenProject.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonOpenProject.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButtonOpenProject.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonOpenProjectActionPerformed(evt);
             }
         });
@@ -164,10 +139,8 @@ public class MainFrame extends javax.swing.JFrame {
         jButtonSaveProject.setFocusable(false);
         jButtonSaveProject.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonSaveProject.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonSaveProject.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButtonSaveProject.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonSaveProjectActionPerformed(evt);
             }
         });
@@ -177,10 +150,8 @@ public class MainFrame extends javax.swing.JFrame {
         jButtonExportProject.setFocusable(false);
         jButtonExportProject.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonExportProject.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonExportProject.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButtonExportProject.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonExportProjectActionPerformed(evt);
             }
         });
@@ -191,10 +162,8 @@ public class MainFrame extends javax.swing.JFrame {
         jButtonAddPackage.setFocusable(false);
         jButtonAddPackage.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonAddPackage.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonAddPackage.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButtonAddPackage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonAddPackageActionPerformed(evt);
             }
         });
@@ -204,10 +173,8 @@ public class MainFrame extends javax.swing.JFrame {
         jButtonAddClass.setFocusable(false);
         jButtonAddClass.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonAddClass.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonAddClass.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButtonAddClass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonAddClassActionPerformed(evt);
             }
         });
@@ -217,10 +184,8 @@ public class MainFrame extends javax.swing.JFrame {
         jButtonAddInterface.setFocusable(false);
         jButtonAddInterface.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonAddInterface.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonAddInterface.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButtonAddInterface.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonAddInterfaceActionPerformed(evt);
             }
         });
@@ -230,10 +195,8 @@ public class MainFrame extends javax.swing.JFrame {
         jButtonAddEnum.setFocusable(false);
         jButtonAddEnum.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonAddEnum.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonAddEnum.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButtonAddEnum.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonAddEnumActionPerformed(evt);
             }
         });
@@ -244,14 +207,13 @@ public class MainFrame extends javax.swing.JFrame {
         jButtonOptions.setFocusable(false);
         jButtonOptions.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonOptions.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonOptions.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButtonOptions.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonOptionsActionPerformed(evt);
             }
         });
         jToolBar.add(jButtonOptions);
+        jToolBar.add(jSeparator7);
 
         getContentPane().add(jToolBar, java.awt.BorderLayout.PAGE_START);
 
@@ -262,6 +224,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         jToolBar4.setFloatable(false);
         jToolBar4.setRollover(true);
+        jToolBar4.add(jSeparator3);
 
         jLabel2.setText("Project");
         jToolBar4.add(jLabel2);
@@ -272,10 +235,8 @@ public class MainFrame extends javax.swing.JFrame {
         jButtonRename.setFocusable(false);
         jButtonRename.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonRename.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonRename.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButtonRename.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonRenameActionPerformed(evt);
             }
         });
@@ -286,10 +247,8 @@ public class MainFrame extends javax.swing.JFrame {
         jButtonMove.setFocusable(false);
         jButtonMove.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonMove.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonMove.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButtonMove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonMoveActionPerformed(evt);
             }
         });
@@ -300,175 +259,31 @@ public class MainFrame extends javax.swing.JFrame {
         jButtonDelete.setFocusable(false);
         jButtonDelete.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonDelete.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonDelete.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButtonDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonDeleteActionPerformed(evt);
             }
         });
         jToolBar4.add(jButtonDelete);
+        jToolBar4.add(jSeparator4);
 
         jPanelProject.add(jToolBar4, java.awt.BorderLayout.PAGE_START);
 
         jTree.setBackground(new java.awt.Color(242, 242, 242));
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
         jTree.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        jTree.addTreeSelectionListener(new javax.swing.event.TreeSelectionListener() {
+            public void valueChanged(javax.swing.event.TreeSelectionEvent evt) {
+                jTreeValueChanged(evt);
+            }
+        });
         jScrollPane.setViewportView(jTree);
 
         jPanelProject.add(jScrollPane, java.awt.BorderLayout.CENTER);
 
         jSplitPane.setLeftComponent(jPanelProject);
 
-        jPanelFiles.setLayout(new java.awt.BorderLayout(5, 5));
-
-        jPanel3.setBackground(new java.awt.Color(242, 242, 242));
-
-        jList1.setModel(new javax.swing.AbstractListModel<String>()
-        {
-            String[] strings = { "+ amount : int" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane1.setViewportView(jList1);
-
-        jList2.setModel(new javax.swing.AbstractListModel<String>()
-        {
-            String[] strings = { "+ final synchronized sendMessage(message : Message) : void" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane2.setViewportView(jList2);
-
-        jList3.setModel(new javax.swing.AbstractListModel<String>()
-        {
-            String[] strings = { "+ Entity()" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane3.setViewportView(jList3);
-
-        jToolBar1.setFloatable(false);
-        jToolBar1.setRollover(true);
-        jToolBar1.setMinimumSize(new java.awt.Dimension(200, 40));
-        jToolBar1.setPreferredSize(new java.awt.Dimension(100, 30));
-
-        jLabel1.setText("Fields");
-        jToolBar1.add(jLabel1);
-        jToolBar1.add(jSeparator3);
-
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/insert-object.png"))); // NOI18N
-        jButton1.setFocusable(false);
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton1);
-
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/preferences-desktop-personal.png"))); // NOI18N
-        jButton2.setEnabled(false);
-        jButton2.setFocusable(false);
-        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton2);
-
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/edit-delete.png"))); // NOI18N
-        jButton3.setEnabled(false);
-        jButton3.setFocusable(false);
-        jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton3);
-
-        jToolBar2.setFloatable(false);
-        jToolBar2.setRollover(true);
-        jToolBar2.setMinimumSize(new java.awt.Dimension(200, 40));
-        jToolBar2.setPreferredSize(new java.awt.Dimension(100, 30));
-
-        jLabel4.setText("Constructors");
-        jToolBar2.add(jLabel4);
-        jToolBar2.add(jSeparator4);
-
-        jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/insert-object.png"))); // NOI18N
-        jButton10.setFocusable(false);
-        jButton10.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton10.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar2.add(jButton10);
-
-        jButton11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/preferences-desktop-personal.png"))); // NOI18N
-        jButton11.setEnabled(false);
-        jButton11.setFocusable(false);
-        jButton11.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton11.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar2.add(jButton11);
-
-        jButton12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/edit-delete.png"))); // NOI18N
-        jButton12.setEnabled(false);
-        jButton12.setFocusable(false);
-        jButton12.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton12.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar2.add(jButton12);
-
-        jToolBar3.setFloatable(false);
-        jToolBar3.setRollover(true);
-        jToolBar3.setMinimumSize(new java.awt.Dimension(200, 40));
-        jToolBar3.setPreferredSize(new java.awt.Dimension(100, 30));
-
-        jLabel5.setText("Methods");
-        jToolBar3.add(jLabel5);
-        jToolBar3.add(jSeparator5);
-
-        jButton13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/insert-object.png"))); // NOI18N
-        jButton13.setFocusable(false);
-        jButton13.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton13.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar3.add(jButton13);
-
-        jButton14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/preferences-desktop-personal.png"))); // NOI18N
-        jButton14.setEnabled(false);
-        jButton14.setFocusable(false);
-        jButton14.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton14.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar3.add(jButton14);
-
-        jButton15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/edit-delete.png"))); // NOI18N
-        jButton15.setEnabled(false);
-        jButton15.setFocusable(false);
-        jButton15.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton15.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar3.add(jButton15);
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jToolBar1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 579, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 579, Short.MAX_VALUE)
-                    .addComponent(jToolBar2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jToolBar3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(jToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(jToolBar3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jPanelFiles.add(jPanel3, java.awt.BorderLayout.CENTER);
-
+        jPanelFiles.setLayout(new java.awt.CardLayout(2, 2));
         jSplitPane.setRightComponent(jPanelFiles);
 
         getContentPane().add(jSplitPane, java.awt.BorderLayout.CENTER);
@@ -517,28 +332,58 @@ public class MainFrame extends javax.swing.JFrame {
         controller.getProject().getChildren().forEach((child) -> {
             addNode(rootNode, child);
         });
-        
+
         final TreeModel treeModel = new DefaultTreeModel(rootNode);
         jTree.setModel(treeModel);
         jTree.setShowsRootHandles(true);
     }
-    
+
     private void addNode(final DefaultMutableTreeNode parent, final JNode node) {
-        final DefaultMutableTreeNode treeNode = 
-                new DefaultMutableTreeNode(node);
+        final DefaultMutableTreeNode treeNode
+                = new DefaultMutableTreeNode(node);
         parent.add(treeNode);
-        
+
         if (node instanceof JParentNode) {
             ((JParentNode) node).getChildren().forEach((child) -> {
                 addNode(treeNode, child);
             });
         }
     }
+    
+    private void updateFile() {
+        jPanelFiles.removeAll();
+
+        final DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) (jTree.getLastSelectedPathComponent());
+
+        if (selectedNode != null) {
+            if (selectedNode.getUserObject() instanceof JClass) {
+                final JClass jClass = (JClass) selectedNode.getUserObject();
+                
+                final ElementListPanel fieldsPanel = new ElementListPanel();
+                fieldsPanel.setElements(jClass.getFields());
+                jPanelFiles.add(fieldsPanel);
+                fieldsPanel.setConstructors(jClass.getConstructors());
+                fieldsPanel.setMethods(jClass.getMethods());
+                
+                fieldsPanel.setOnAddCallback(() -> {
+                    ((JClass) controller.getProject().getHierarchicalChild(
+                            jClass.getName())).addField(fieldsPanel.getElement());
+                    updateFile();
+                });
+            }
+        }
+
+        jButtonRename.setEnabled(jTree.getSelectionCount() != 0);
+        jButtonMove.setEnabled(jTree.getSelectionCount() != 0);
+        jButtonDelete.setEnabled(jTree.getSelectionCount() != 0);
+
+        repaint();
+    }
 
     private void jButtonNewProjectActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonNewProjectActionPerformed
     {//GEN-HEADEREND:event_jButtonNewProjectActionPerformed
         controller.newProject();
-        
+
         jButtonAddPackage.setEnabled(true);
         jButtonAddClass.setEnabled(true);
         jButtonAddInterface.setEnabled(true);
@@ -570,18 +415,18 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void jButtonAddPackageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddPackageActionPerformed
         final AddPackageDialog dialog = new AddPackageDialog(this);
-        
-        final List<JNode> parentNodes = 
-                controller.getProject().getHierarchicalChildren(JParentNode.class);
-        
+
+        final List<JNode> parentNodes
+                = controller.getProject().getHierarchicalChildren(JParentNode.class);
+
         final String[] parentsNames = new String[parentNodes.size() + 1];
         parentsNames[0] = controller.getProject().getName();
         for (int i = 0; i < parentNodes.size(); i++) {
             parentsNames[i + 1] = parentNodes.get(i).getName();
         }
-        
+
         dialog.setParentsNames(parentsNames);
-        
+
         dialog.setOnAcceptCallback(() -> {
             final JPackage jPackage = new JPackage();
             jPackage.setName(dialog.getPackageName());
@@ -589,7 +434,7 @@ public class MainFrame extends javax.swing.JFrame {
             controller.getProject().addChildTo(jPackage, dialog.getParentName());
             updateTree();
         });
-        
+
         dialog.setOnChangeNameCallback((name) -> {
             for (String nodeName : parentsNames) {
                 if (nodeName.equals(name)) {
@@ -597,40 +442,40 @@ public class MainFrame extends javax.swing.JFrame {
                     return;
                 }
             }
-            
+
             dialog.setAvailableName(true);
         });
-        
+
         dialog.setVisible(true);
     }//GEN-LAST:event_jButtonAddPackageActionPerformed
-    
+
     private void jButtonAddClassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddClassActionPerformed
         final AddClassDialog dialog = new AddClassDialog(this);
-        
-        final List<JNode> parentsNodes = 
-                controller.getProject().getHierarchicalChildren(JParentNode.class);
-        
+
+        final List<JNode> parentsNodes
+                = controller.getProject().getHierarchicalChildren(JParentNode.class);
+
         final String[] parentsNames = new String[parentsNodes.size() + 1];
         parentsNames[0] = controller.getProject().getName();
-        
+
         for (int i = 0; i < parentsNodes.size(); i++) {
             parentsNames[i + 1] = parentsNodes.get(i).getName();
         }
-        
+
         dialog.setParentsNames(parentsNames);
-        
-        final List<JNode> classesNodes = 
-                controller.getProject().getHierarchicalChildren(JClass.class);
-        
+
+        final List<JNode> classesNodes
+                = controller.getProject().getHierarchicalChildren(JClass.class);
+
         final String[] classesNames = new String[classesNodes.size() + 1];
         classesNames[0] = "";
-        
+
         for (int i = 0; i < classesNodes.size(); i++) {
             classesNames[i + 1] = classesNodes.get(i).getName();
         }
-        
+
         dialog.setClassesNames(classesNames);
-        
+
         dialog.setOnAcceptCallback(() -> {
             final JClass jClass = new JClass();
             jClass.setName(dialog.getClassName());
@@ -642,7 +487,7 @@ public class MainFrame extends javax.swing.JFrame {
             controller.getProject().addChildTo(jClass, dialog.getParentName());
             updateTree();
         });
-        
+
         dialog.setOnChangeNameCallback((name) -> {
             for (JNode child : controller.getProject().getHierarchicalChildren()) {
                 if (child.getName().equals(name)) {
@@ -650,40 +495,40 @@ public class MainFrame extends javax.swing.JFrame {
                     return;
                 }
             }
-            
+
             dialog.setAvailableName(true);
         });
-        
+
         dialog.setVisible(true);
     }//GEN-LAST:event_jButtonAddClassActionPerformed
 
     private void jButtonAddInterfaceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddInterfaceActionPerformed
         final AddInterfaceDialog dialog = new AddInterfaceDialog(this);
-        
-        final List<JNode> parentsNodes = 
-                controller.getProject().getHierarchicalChildren(JParentNode.class);
-        
+
+        final List<JNode> parentsNodes
+                = controller.getProject().getHierarchicalChildren(JParentNode.class);
+
         final String[] parentsNames = new String[parentsNodes.size() + 1];
         parentsNames[0] = controller.getProject().getName();
-        
+
         for (int i = 0; i < parentsNodes.size(); i++) {
             parentsNames[i + 1] = parentsNodes.get(i).getName();
         }
-        
+
         dialog.setParentsNames(parentsNames);
-        
-        final List<JNode> interfacesNodes = 
-                controller.getProject().getHierarchicalChildren(JInterface.class);
-        
+
+        final List<JNode> interfacesNodes
+                = controller.getProject().getHierarchicalChildren(JInterface.class);
+
         final String[] interfacesNames = new String[interfacesNodes.size() + 1];
         interfacesNames[0] = "";
-        
+
         for (int i = 0; i < interfacesNodes.size(); i++) {
             interfacesNames[i + 1] = interfacesNodes.get(i).getName();
         }
-        
+
         dialog.setInterfacesNames(interfacesNames);
-        
+
         dialog.setOnAcceptCallback(() -> {
             final JInterface jInterface = new JInterface();
             jInterface.setName(dialog.getInterfaceName());
@@ -691,7 +536,7 @@ public class MainFrame extends javax.swing.JFrame {
             controller.getProject().addChildTo(jInterface, dialog.getParentName());
             updateTree();
         });
-        
+
         dialog.setOnChangeNameCallback((name) -> {
             for (String nodeName : parentsNames) {
                 if (nodeName.equals(name)) {
@@ -699,49 +544,49 @@ public class MainFrame extends javax.swing.JFrame {
                     return;
                 }
             }
-            
+
             dialog.setAvailableName(true);
         });
-        
+
         dialog.setVisible(true);
     }//GEN-LAST:event_jButtonAddInterfaceActionPerformed
 
     private void jButtonAddEnumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddEnumActionPerformed
         final AddEnumDialog dialog = new AddEnumDialog(this);
-        
-        final List<JNode> parentsNodes = 
-                controller.getProject().getHierarchicalChildren(JParentNode.class);
-        
+
+        final List<JNode> parentsNodes
+                = controller.getProject().getHierarchicalChildren(JParentNode.class);
+
         final String[] parentsNames = new String[parentsNodes.size() + 1];
         parentsNames[0] = controller.getProject().getName();
-        
+
         for (int i = 0; i < parentsNodes.size(); i++) {
             parentsNames[i + 1] = parentsNodes.get(i).getName();
         }
-        
+
         dialog.setParentsNames(parentsNames);
-        
-        final List<JNode> interfacesNodes = 
-                controller.getProject().getHierarchicalChildren(JInterface.class);
-        
+
+        final List<JNode> interfacesNodes
+                = controller.getProject().getHierarchicalChildren(JInterface.class);
+
         final String[] interfacesNames = new String[interfacesNodes.size() + 1];
         interfacesNames[0] = "";
-        
+
         for (int i = 0; i < interfacesNodes.size(); i++) {
             interfacesNames[i + 1] = interfacesNodes.get(i).getName();
         }
-        
+
         dialog.setInterfacesNames(interfacesNames);
-        
+
         dialog.setOnAcceptCallback(() -> {
             final JEnum jEnum = new JEnum();
             jEnum.setName(dialog.getInterfaceName());
             jEnum.setDescription(dialog.getDescription());
             controller.getProject().addChildTo(jEnum, dialog.getParentName());
-            
+
             updateTree();
         });
-        
+
         dialog.setOnChangeNameCallback((name) -> {
             for (String nodeName : parentsNames) {
                 if (nodeName.equals(name)) {
@@ -749,40 +594,38 @@ public class MainFrame extends javax.swing.JFrame {
                     return;
                 }
             }
-            
+
             dialog.setAvailableName(true);
         });
-        
+
         dialog.setVisible(true);
     }//GEN-LAST:event_jButtonAddEnumActionPerformed
 
     private void jButtonOptionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOptionsActionPerformed
         final OptionsDialog dialog = new OptionsDialog(this);
-        
+
         dialog.setOnAcceptCallback(() -> {
-            
+
         });
-        
+
         dialog.setVisible(true);
     }//GEN-LAST:event_jButtonOptionsActionPerformed
 
     private void jButtonRenameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRenameActionPerformed
         final RenameDialog dialog = new RenameDialog(this);
-        
-        final DefaultMutableTreeNode node = (DefaultMutableTreeNode)
-                 (jTree.getLastSelectedPathComponent());
-        
+
+        final DefaultMutableTreeNode node = (DefaultMutableTreeNode) (jTree.getLastSelectedPathComponent());
+
         dialog.setDefaultName(((JNode) node.getUserObject()).getName());
         dialog.setDefaultDescription(((JNode) node.getUserObject()).getDescription());
-        
+
         final List<JNode> parentsNodes = controller.getProject().
                 getHierarchicalChildren(JParentNode.class);
-        
+
         dialog.setOnAcceptCallback(() -> {
             if (controller.getProject() == (JNode) node.getUserObject()) {
                 controller.getProject().setName(dialog.getNewName());
-            }
-            else {
+            } else {
                 for (JNode packageNode : parentsNodes) {
                     if (packageNode == (JNode) node.getUserObject()) {
                         packageNode.setName(dialog.getNewName());
@@ -790,10 +633,10 @@ public class MainFrame extends javax.swing.JFrame {
                     }
                 }
             }
-            
+
             updateTree();
         });
-        
+
         dialog.setOnChangeNameCallback((name) -> {
             for (JNode packageNode : parentsNodes) {
                 if (packageNode.getName().equals(name)) {
@@ -801,48 +644,50 @@ public class MainFrame extends javax.swing.JFrame {
                     break;
                 }
             }
-            
+
             dialog.setAvailableName(true);
         });
-        
+
         dialog.setVisible(true);
     }//GEN-LAST:event_jButtonRenameActionPerformed
 
     private void jButtonMoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMoveActionPerformed
         final MoveDialog dialog = new MoveDialog(this);
-        
+
         final List<JNode> parentsNodes = controller.getProject().
                 getHierarchicalChildren(JParentNode.class);
-        
+
         final String[] parentsNames = new String[parentsNodes.size() + 1];
         parentsNames[0] = controller.getProject().getName();
-        
+
         for (int i = 0; i < parentsNodes.size(); i++) {
             parentsNames[i + 1] = parentsNodes.get(i).getName();
         }
-        
+
         dialog.setParentsNames(parentsNames);
-        
-        final DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode)
-                 (jTree.getLastSelectedPathComponent());
-        
-        dialog.setOnAcceptCallback(() -> { 
+
+        final DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) (jTree.getLastSelectedPathComponent());
+
+        dialog.setOnAcceptCallback(() -> {
             final JNode child = (JNode) selectedNode.getUserObject();
             controller.getProject().removeChild(child);
             controller.getProject().addChildTo(child, dialog.getParentName());
             updateTree();
         });
-        
+
         dialog.setVisible(true);
     }//GEN-LAST:event_jButtonMoveActionPerformed
 
     private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonDeleteActionPerformed
     {//GEN-HEADEREND:event_jButtonDeleteActionPerformed
-        final DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode)
-                 (jTree.getLastSelectedPathComponent());
+        final DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) (jTree.getLastSelectedPathComponent());
         controller.getProject().removeChild((JNode) selectedNode.getUserObject());
         updateTree();
     }//GEN-LAST:event_jButtonDeleteActionPerformed
+
+    private void jTreeValueChanged(javax.swing.event.TreeSelectionEvent evt) {//GEN-FIRST:event_jTreeValueChanged
+        updateFile();
+    }//GEN-LAST:event_jTreeValueChanged
 
     /**
      * @param args the command line arguments
@@ -860,17 +705,13 @@ public class MainFrame extends javax.swing.JFrame {
                     break;
                 }
             }
-        }
-        catch (ClassNotFoundException ex) {
+        } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        catch (InstantiationException ex) {
+        } catch (InstantiationException ex) {
             java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        catch (IllegalAccessException ex) {
+        } catch (IllegalAccessException ex) {
             java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
@@ -882,15 +723,6 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton12;
-    private javax.swing.JButton jButton13;
-    private javax.swing.JButton jButton14;
-    private javax.swing.JButton jButton15;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButtonAddClass;
     private javax.swing.JButton jButtonAddEnum;
     private javax.swing.JButton jButtonAddInterface;
@@ -903,13 +735,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButtonOptions;
     private javax.swing.JButton jButtonRename;
     private javax.swing.JButton jButtonSaveProject;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JList<String> jList1;
-    private javax.swing.JList<String> jList2;
-    private javax.swing.JList<String> jList3;
     private javax.swing.JMenu jMenuAdd;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jMenuFile;
@@ -921,24 +747,18 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemNewProject;
     private javax.swing.JMenuItem jMenuItemOpenProject;
     private javax.swing.JMenuItem jMenuItemSaveProject;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanelFiles;
     private javax.swing.JPanel jPanelProject;
     private javax.swing.JScrollPane jScrollPane;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JToolBar.Separator jSeparator3;
     private javax.swing.JToolBar.Separator jSeparator4;
     private javax.swing.JToolBar.Separator jSeparator5;
     private javax.swing.JToolBar.Separator jSeparator6;
+    private javax.swing.JToolBar.Separator jSeparator7;
     private javax.swing.JSplitPane jSplitPane;
     private javax.swing.JToolBar jToolBar;
-    private javax.swing.JToolBar jToolBar1;
-    private javax.swing.JToolBar jToolBar2;
-    private javax.swing.JToolBar jToolBar3;
     private javax.swing.JToolBar jToolBar4;
     private javax.swing.JTree jTree;
     // End of variables declaration//GEN-END:variables

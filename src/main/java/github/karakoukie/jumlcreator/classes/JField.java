@@ -17,7 +17,6 @@
 package github.karakoukie.jumlcreator.classes;
 
 import github.karakoukie.jumlcreator.data.JData;
-import github.karakoukie.jumlcreator.nodes.JAccessKeyword;
 import github.karakoukie.jumlcreator.nodes.JElementNode;
 import github.karakoukie.jumlcreator.nodes.JImplementationKeyword;
 import org.apache.http.annotation.GuardedBy;
@@ -27,13 +26,13 @@ import org.apache.http.annotation.GuardedBy;
  * @author Tristan Muller (tristan.muller@cirad.fr)
  */
 public final class JField extends JElementNode {
-    
+
     /*----------------------------------------------------------------------*/
     /* FIELDS                                                               */
     /*----------------------------------------------------------------------*/
     
     @GuardedBy("this")
-    private JAccessKeyword accessKeyword;
+    private boolean isAbstract;
     
     @GuardedBy("this")
     private JImplementationKeyword implementationKeyword;
@@ -47,7 +46,7 @@ public final class JField extends JElementNode {
     
     public JField() {
         super();
-        this.accessKeyword = JAccessKeyword.PUBLIC;
+        this.isAbstract = false;
         this.implementationKeyword = JImplementationKeyword.FINAL;
         this.data = new JData();
     }
@@ -56,13 +55,28 @@ public final class JField extends JElementNode {
     /* METHODS                                                              */
     /*----------------------------------------------------------------------*/
     
+    @Override
+    public final String getGUIString() {
+        String text = "";
+        
+        if (isAbstract) {
+            text += " # ";
+        } else {
+            text += " - ";
+        }
+        
+        text += getName();
+        text += " : " + getData().getName();
+        
+        return text;
+    }
+    
     /*----------------------------------------------------------------------*/
     /* SETTEURS                                                             */
     /*----------------------------------------------------------------------*/
-    
-    public final synchronized void setAccessKeyword(
-            final JAccessKeyword accessKeyword) {
-        this.accessKeyword = accessKeyword;
+
+    public final synchronized void setIsAbstract(boolean isAbstract) {
+        this.isAbstract = isAbstract;
     }
     
     public final synchronized void setImplementationKeyword(
@@ -73,11 +87,11 @@ public final class JField extends JElementNode {
     /*----------------------------------------------------------------------*/
     /* GETTEURS                                                             */
     /*----------------------------------------------------------------------*/
-    
-    public final synchronized JAccessKeyword getAccessKeyword() {
-        return accessKeyword;
-    }
 
+    public final synchronized boolean isAbstract() {
+        return isAbstract;
+    }
+    
     public final synchronized JImplementationKeyword getImplementationKeyword() {
         return implementationKeyword;
     }

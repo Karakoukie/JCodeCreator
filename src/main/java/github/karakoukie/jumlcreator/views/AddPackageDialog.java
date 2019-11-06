@@ -14,8 +14,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package github.karakoukie.jumlcreator;
+package github.karakoukie.jumlcreator.views;
 
+import java.util.function.Consumer;
 import javax.swing.DefaultComboBoxModel;
 import org.apache.http.annotation.GuardedBy;
 
@@ -23,21 +24,27 @@ import org.apache.http.annotation.GuardedBy;
  *
  * @author Tristan Muller
  */
-public class MoveDialog extends java.awt.Dialog {
+public class AddPackageDialog extends java.awt.Dialog {
 
     @GuardedBy("this")
     private Runnable onAcceptCallback;
-
+    
+    @GuardedBy("this")
+    private Consumer<String> onChangeNameCallback;
+    
+    private boolean validName;
+    
     /**
      * Creates new form CreateProjectDialog
-     *
      * @param parent
      */
-    public MoveDialog(java.awt.Frame parent) {
+    public AddPackageDialog(java.awt.Frame parent) {
         super(parent, true);
         initComponents();
         this.onAcceptCallback = null;
+        this.onChangeNameCallback = null;
         setLocationRelativeTo(parent);
+        jPanelError.setVisible(false);
     }
 
     /**
@@ -53,11 +60,22 @@ public class MoveDialog extends java.awt.Dialog {
         jPanelBody = new javax.swing.JPanel();
         jPanelPackageName = new javax.swing.JPanel();
         jLabelProjectName = new javax.swing.JLabel();
-        jComboBoxParent = new javax.swing.JComboBox<>();
+        jTextFieldProjectName = new javax.swing.JTextField();
+        jPanelPackageParent = new javax.swing.JPanel();
+        jLabelProjectName3 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jPanelProjectName1 = new javax.swing.JPanel();
+        jLabelProjectName1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextAreaDesc = new javax.swing.JTextArea();
+        jPanelError = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabelErrorMessage = new javax.swing.JLabel();
         jPanelFooter = new javax.swing.JPanel();
         jButtonCancel = new javax.swing.JButton();
         jButtonAccept = new javax.swing.JButton();
 
+        setPreferredSize(new java.awt.Dimension(580, 400));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -69,23 +87,59 @@ public class MoveDialog extends java.awt.Dialog {
 
         jLabel1.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Move");
+        jLabel1.setText("Create package");
         jDesktopPaneHeader.add(jLabel1);
 
         add(jDesktopPaneHeader, java.awt.BorderLayout.NORTH);
 
         jPanelBody.setBorder(null);
 
-        jLabelProjectName.setText("Parent :");
+        jLabelProjectName.setText("Package name :");
         jLabelProjectName.setPreferredSize(new java.awt.Dimension(238, 16));
-        jLabelProjectName.setRequestFocusEnabled(false);
         jPanelPackageName.add(jLabelProjectName);
 
-        jComboBoxParent.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBoxParent.setPreferredSize(new java.awt.Dimension(238, 26));
-        jPanelPackageName.add(jComboBoxParent);
+        jTextFieldProjectName.setPreferredSize(new java.awt.Dimension(238, 28));
+        jTextFieldProjectName.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                jTextFieldProjectNameCaretUpdate(evt);
+            }
+        });
+        jPanelPackageName.add(jTextFieldProjectName);
 
         jPanelBody.add(jPanelPackageName);
+
+        jLabelProjectName3.setText("Package parent :");
+        jLabelProjectName3.setPreferredSize(new java.awt.Dimension(238, 16));
+        jPanelPackageParent.add(jLabelProjectName3);
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.setPreferredSize(new java.awt.Dimension(238, 26));
+        jPanelPackageParent.add(jComboBox1);
+
+        jPanelBody.add(jPanelPackageParent);
+
+        jLabelProjectName1.setText("Package description :");
+        jLabelProjectName1.setPreferredSize(new java.awt.Dimension(238, 16));
+        jPanelProjectName1.add(jLabelProjectName1);
+
+        jTextAreaDesc.setColumns(20);
+        jTextAreaDesc.setRows(5);
+        jScrollPane1.setViewportView(jTextAreaDesc);
+
+        jPanelProjectName1.add(jScrollPane1);
+
+        jPanelBody.add(jPanelProjectName1);
+
+        jPanelError.setBorder(javax.swing.BorderFactory.createLineBorder(java.awt.Color.gray));
+        jPanelError.setPreferredSize(new java.awt.Dimension(478, 28));
+        jPanelError.setRequestFocusEnabled(false);
+
+        jLabel2.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel2.setText("Error :");
+        jPanelError.add(jLabel2);
+        jPanelError.add(jLabelErrorMessage);
+
+        jPanelBody.add(jPanelError);
 
         add(jPanelBody, java.awt.BorderLayout.CENTER);
 
@@ -117,14 +171,36 @@ public class MoveDialog extends java.awt.Dialog {
         this.onAcceptCallback = onAcceptCallback;
     }
 
-    public final synchronized void setParentsNames(final String[] names) {
-        this.jComboBoxParent.setModel(new DefaultComboBoxModel(names));
+    public final synchronized void setOnChangeNameCallback(
+            final Consumer<String> onChangeNameCallback) {
+        this.onChangeNameCallback = onChangeNameCallback;
     }
-
-    public final synchronized String getParentName() {
-        return (String) jComboBoxParent.getSelectedItem();
+    
+    public final synchronized void setParentsNames(final String[] parents) {
+        this.jComboBox1.setModel(new DefaultComboBoxModel(parents));
     }
-
+    
+    public final String getPackageName() {
+        return jTextFieldProjectName.getText();
+    }
+    
+    public final String getParentName() {
+        return (String) jComboBox1.getSelectedItem();
+    }
+    
+    public final String getDescription() {
+        return jTextAreaDesc.getText();
+    }
+    
+    public final void setAvailableName(final boolean available) {
+        this.validName = available;
+        jPanelError.setVisible(!available);
+        
+        if (!available) {
+            jLabelErrorMessage.setText("The name is not valid");
+        }
+    }
+    
     /**
      * Closes the dialog
      */
@@ -138,12 +214,24 @@ public class MoveDialog extends java.awt.Dialog {
     }//GEN-LAST:event_jButtonCancelActionPerformed
 
     private void jButtonAcceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAcceptActionPerformed
-        if (onAcceptCallback != null) {
-            onAcceptCallback.run();
+        if (jTextFieldProjectName.getText() == null || jTextFieldProjectName.getText().isEmpty()) {
+            setAvailableName(false);
         }
+        
+        if (validName) {
+            if (onAcceptCallback != null) {
+                onAcceptCallback.run();
+            }
 
-        closeDialog(null);
+            closeDialog(null);
+        }
     }//GEN-LAST:event_jButtonAcceptActionPerformed
+
+    private void jTextFieldProjectNameCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_jTextFieldProjectNameCaretUpdate
+        if (onChangeNameCallback != null) {
+            onChangeNameCallback.accept(jTextFieldProjectName.getText());
+        }
+    }//GEN-LAST:event_jTextFieldProjectNameCaretUpdate
 
     /**
      * @param args the command line arguments
@@ -151,7 +239,7 @@ public class MoveDialog extends java.awt.Dialog {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                MoveDialog dialog = new MoveDialog(new java.awt.Frame());
+                AddPackageDialog dialog = new AddPackageDialog(new java.awt.Frame());
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
@@ -165,12 +253,22 @@ public class MoveDialog extends java.awt.Dialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAccept;
     private javax.swing.JButton jButtonCancel;
-    private javax.swing.JComboBox<String> jComboBoxParent;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JDesktopPane jDesktopPaneHeader;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabelErrorMessage;
     private javax.swing.JLabel jLabelProjectName;
+    private javax.swing.JLabel jLabelProjectName1;
+    private javax.swing.JLabel jLabelProjectName3;
     private javax.swing.JPanel jPanelBody;
+    private javax.swing.JPanel jPanelError;
     private javax.swing.JPanel jPanelFooter;
     private javax.swing.JPanel jPanelPackageName;
+    private javax.swing.JPanel jPanelPackageParent;
+    private javax.swing.JPanel jPanelProjectName1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextAreaDesc;
+    private javax.swing.JTextField jTextFieldProjectName;
     // End of variables declaration//GEN-END:variables
 }

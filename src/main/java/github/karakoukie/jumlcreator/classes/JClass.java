@@ -16,7 +16,8 @@
  */
 package github.karakoukie.jumlcreator.classes;
 
-import github.karakoukie.jumlcreator.methods.JMethod;
+import github.karakoukie.jumlcreator.classes.methods.JConstructor;
+import github.karakoukie.jumlcreator.classes.methods.JMethod;
 import github.karakoukie.jumlcreator.nodes.JChildNode;
 import github.karakoukie.jumlcreator.nodes.JImplementationKeyword;
 import java.util.Collections;
@@ -40,7 +41,7 @@ public final class JClass extends JChildNode {
     private Package parent;
     
     @GuardedBy("this")
-    private JClassAccessibility accessibility;
+    private JClassConcurrencyType accessibility;
     
     @GuardedBy("this")
     private JImplementationKeyword classType;
@@ -55,6 +56,9 @@ public final class JClass extends JChildNode {
     private final List<JField> fields;
     
     @GuardedBy("CopyOnWriteArrayList")
+    private final List<JConstructor> constructors;
+    
+    @GuardedBy("CopyOnWriteArrayList")
     private final List<JMethod> methods;
     
     /*----------------------------------------------------------------------*/
@@ -64,11 +68,12 @@ public final class JClass extends JChildNode {
     public JClass() {
         super();
         this.parent = null;
-        this.accessibility = JClassAccessibility.NOT_THREAD_SAFE;
+        this.accessibility = JClassConcurrencyType.NOT_THREAD_SAFE;
         this.classType = JImplementationKeyword.EMPTY;
         this.extension = null;
         this.implementations = new CopyOnWriteArrayList();
         this.fields = new CopyOnWriteArrayList();
+        this.constructors = new CopyOnWriteArrayList();
         this.methods = new CopyOnWriteArrayList();
     }
     
@@ -85,7 +90,7 @@ public final class JClass extends JChildNode {
     }
     
     public final synchronized void setAccessibility(
-            final JClassAccessibility accessibility) {
+            final JClassConcurrencyType accessibility) {
         this.accessibility = accessibility;
     }
 
@@ -129,7 +134,7 @@ public final class JClass extends JChildNode {
         return parent;
     }
     
-    public final synchronized JClassAccessibility getAccessibility() {
+    public final synchronized JClassConcurrencyType getAccessibility() {
         return accessibility;
     }
 
@@ -147,6 +152,10 @@ public final class JClass extends JChildNode {
 
     public final List<JField> getFields() {
         return Collections.unmodifiableList(fields);
+    }
+    
+    public final List<JConstructor> getConstructors() {
+        return Collections.unmodifiableList(constructors);
     }
 
     public final List<JMethod> getMethods() {

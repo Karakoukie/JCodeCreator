@@ -16,7 +16,7 @@
  */
 package github.karakoukie.jumlcreator.classes;
 
-import github.karakoukie.jumlcreator.methods.JInterfaceMethod;
+import github.karakoukie.jumlcreator.classes.methods.JInterfaceMethod;
 import github.karakoukie.jumlcreator.nodes.JChildNode;
 import java.util.Collections;
 import java.util.List;
