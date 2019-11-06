@@ -21,7 +21,5 @@ package github.karakoukie.jumlcreator.nodes;
  * @author Tristan Muller
  */
 public abstract class JElementNode extends JNode {
-    
     public abstract String getGUIString();
-    
 }
