@@ -100,16 +100,19 @@ public class AddClassDialog extends java.awt.Dialog {
             }
         });
 
-        jDesktopPaneHeader.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 10));
+        jDesktopPaneHeader.setLayout(new java.awt.CardLayout(10, 10));
 
         jLabel1.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Create class");
-        jDesktopPaneHeader.add(jLabel1);
+        jDesktopPaneHeader.add(jLabel1, "card2");
 
         add(jDesktopPaneHeader, java.awt.BorderLayout.NORTH);
 
         jPanelBody.setBorder(null);
+
+        jPanelPackageName.setPreferredSize(new java.awt.Dimension(491, 35));
 
         jLabelProjectName.setLabelFor(jLabelProjectName);
         jLabelProjectName.setText("Name :");

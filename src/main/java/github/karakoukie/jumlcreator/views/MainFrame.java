@@ -26,6 +26,7 @@ import github.karakoukie.jumlcreator.classes.methods.JConstructor;
 import github.karakoukie.jumlcreator.nodes.JNode;
 import github.karakoukie.jumlcreator.nodes.JParentNode;
 import github.karakoukie.jumlcreator.packages.JPackage;
+import github.karakoukie.jumlcreator.util.StepDialog;
 import java.awt.Frame;
 import java.util.List;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -395,22 +396,24 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void jButtonNewProjectActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonNewProjectActionPerformed
     {//GEN-HEADEREND:event_jButtonNewProjectActionPerformed
-        controller.newProject();
-
-        jButtonAddPackage.setEnabled(true);
-        jButtonAddClass.setEnabled(true);
-        jButtonAddInterface.setEnabled(true);
-        jButtonAddEnum.setEnabled(true);
-
-        final CreateProjectDialog dialog = new CreateProjectDialog(this);
-
-        dialog.setOnAcceptCallback(() -> {
-            controller.getProject().setName(dialog.getProjectName());
-            controller.getProject().setDescription(dialog.getDescription());
-            updateTree();
-        });
-
-        dialog.setVisible(true);
+//        controller.newProject();
+//
+//        jButtonAddPackage.setEnabled(true);
+//        jButtonAddClass.setEnabled(true);
+//        jButtonAddInterface.setEnabled(true);
+//        jButtonAddEnum.setEnabled(true);
+//
+//        final CreateProjectDialog dialog = new CreateProjectDialog(this);
+//
+//        dialog.setOnAcceptCallback(() -> {
+//            controller.getProject().setName(dialog.getProjectName());
+//            controller.getProject().setDescription(dialog.getDescription());
+//            updateTree();
+//        });
+//
+//        dialog.setVisible(true);
+        
+        new StepDialog(this).setVisible(true);
     }//GEN-LAST:event_jButtonNewProjectActionPerformed
 
     private void jButtonOpenProjectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOpenProjectActionPerformed
